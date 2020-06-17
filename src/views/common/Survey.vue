@@ -1,0 +1,129 @@
+<template>
+  <div class="message-area">
+    <div class="form-group mt-3">
+      <label for="age" class="ml-3">Yaş</label>
+      <div class="col-sm-3">
+        <input type="number" class="form-control" id="age" v-model="user.age">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="gender" class="ml-3">Cinsiyet</label>
+      <div class="col-sm-6">
+        <b-form-radio-group id="gender" v-model="user.gender" name="radio-gender">
+          <b-form-radio value="Erkek">Erkek</b-form-radio>
+          <b-form-radio value="Kadın">Kadın</b-form-radio>
+        </b-form-radio-group>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="age" class="ml-3">Devam etmekte olduğunuz bölüm</label>
+      <div class="col-sm-6">
+        <input type="text" class="form-control" id="age" v-model="user.department">
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="age" class="ml-3">
+        Şu anda herhangi bir nörolojik / psikiyatrik ilaç kullanıyor musunuz?
+      </label>
+       <div class="col-sm-6">
+        <b-form-radio-group id="gender" v-model="user.gender" name="radio-gender">
+          <b-form-radio value="Evet">Evet</b-form-radio>
+          <b-form-radio value="Hayır">Hayır</b-form-radio>
+        </b-form-radio-group>
+      </div>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="attentionLevel" class="ml-3">Genel olarak dikkatiniz nasıldır?</label>
+      <b-container>
+        <b-row>
+          <b-col class="col-sm-8">
+            <b-form-input
+              type="range"
+              id="attentionLevel"
+              v-model="user.attentionLevel"
+              min="0"
+              max="10"
+              step="0.5"
+            >
+            </b-form-input>
+          </b-col>
+          <b-col>
+            <p>{{user.attentionLevel}}</p>
+          </b-col>
+      </b-row>
+      </b-container>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="memoryLevel" class="ml-3">Genel olarak belleğiniz nasıldır?</label>
+      <b-container>
+        <b-row>
+          <b-col class="col-sm-8">
+            <b-form-input
+              type="range"
+              id="memoryLevel"
+              v-model="user.memoryLevel"
+              min="0"
+              max="10"
+              step="0.5"
+            >
+            </b-form-input>
+          </b-col>
+          <b-col>
+            <p>{{user.memoryLevel}}</p>
+          </b-col>
+      </b-row>
+      </b-container>
+    </div>
+
+    <div class="form-group mt-3">
+      <label for="rememberLevel" class="ml-3">
+        Birazdan size verilecek kısa cümleleri tahmini ne kadar iyi hatırlayacaksınız?
+      </label>
+      <b-container>
+        <b-row>
+          <b-col class="col-sm-8">
+            <b-form-input
+              type="range"
+              id="rememberLevel"
+              v-model="user.rememberLevel"
+              min="0"
+              max="10"
+              step="0.5">
+            </b-form-input>
+          </b-col>
+          <b-col>
+            <p>{{user.rememberLevel}}</p>
+          </b-col>
+      </b-row>
+      </b-container>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'Survey',
+  data() {
+    return {
+      user: {
+        age: 0,
+        gender: '',
+        department: '',
+        drugs: '',
+        attentionLevel: 0,
+        memoryLevel: 0,
+        rememberLevel: 0,
+      },
+    };
+  },
+};
+</script>
+
+<style>
+
+</style>
