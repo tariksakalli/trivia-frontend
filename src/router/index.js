@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 import Home from '../views/common/Home.vue';
 import Info from '../views/common/Info.vue';
 import Survey from '../views/common/Survey.vue';
+import Warning from '../views/common/Warning.vue';
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: '/survey',
     name: 'Survey',
     component: Survey,
+  },
+  {
+    path: '/warning',
+    name: 'Warning',
+    component: Warning,
   },
 ];
 

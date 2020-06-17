@@ -1,8 +1,8 @@
 <template>
   <div class="message-area">
     <b-container>
-      <b-row>
         <p>Merhaba,</p>
+
         <p>
           Doktora tezim için oluşturulmuş bu çalışmanın amacı
           teknolojinin öğrenme ve zihin üzerinde oluşturduğu yükü ve etkilerini ölçmektir.
@@ -33,7 +33,6 @@
         <p>
           Katkılarınız için şimdiden çok teşekkür ederim.
         </p>
-      </b-row>
       <b-row align-h="center">
         <b-link
           to="/survey"

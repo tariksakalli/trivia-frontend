@@ -1,11 +1,16 @@
 /* eslint-disable no-shadow */
 import api from '@/api';
+import axios from 'axios';
 
 const state = {
   user: null,
 };
 
-const getters = {};
+const getters = {
+  getToken(state) {
+    return state.user.token;
+  },
+};
 
 const actions = {
   login({ commit }, credentials) {
@@ -18,6 +23,7 @@ const actions = {
 const mutations = {
   SET_USER_DATA(state, userData) {
     state.user = userData;
+    axios.defaults.headers.common.Authorization = `Bearer ${userData.token}`;
   },
 };
 

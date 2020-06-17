@@ -18,20 +18,20 @@
     </div>
 
     <div class="form-group mt-3">
-      <label for="age" class="ml-3">Devam etmekte olduğunuz bölüm</label>
+      <label for="department" class="ml-3">Devam etmekte olduğunuz bölüm</label>
       <div class="col-sm-6">
-        <input type="text" class="form-control" id="age" v-model="user.department">
+        <input type="text" class="form-control" id="department" v-model="user.department">
       </div>
     </div>
 
     <div class="form-group mt-3">
-      <label for="age" class="ml-3">
+      <label for="drugs" class="ml-3">
         Şu anda herhangi bir nörolojik / psikiyatrik ilaç kullanıyor musunuz?
       </label>
        <div class="col-sm-6">
-        <b-form-radio-group id="gender" v-model="user.gender" name="radio-gender">
-          <b-form-radio value="Evet">Evet</b-form-radio>
-          <b-form-radio value="Hayır">Hayır</b-form-radio>
+        <b-form-radio-group id="drugs" v-model="user.drugs" name="radio-drugs">
+          <b-form-radio value="1">Evet</b-form-radio>
+          <b-form-radio value="0">Hayır</b-form-radio>
         </b-form-radio-group>
       </div>
     </div>
@@ -102,10 +102,14 @@
       </b-row>
       </b-container>
     </div>
+
+    <b-button @click="submitSurvey">Devam</b-button>
   </div>
 </template>
 
 <script>
+import api from '@/api';
+
 export default {
   name: 'Survey',
   data() {
@@ -118,8 +122,18 @@ export default {
         attentionLevel: 0,
         memoryLevel: 0,
         rememberLevel: 0,
+        username: 'user100',
       },
     };
+  },
+  methods: {
+    submitSurvey() {
+      api.submitSurvey(this.user).then((result) => {
+        if (result.data.affectedRows === 1) {
+          this.$router.push({ name: 'Warning' });
+        }
+      });
+    },
   },
 };
 </script>
