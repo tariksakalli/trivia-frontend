@@ -36,7 +36,7 @@
       <b-row align-h="center">
         <b-link
           to="/survey"
-          class="float-right mt-3 p-3 link-btn"
+          class="mt-3 p-3 link-btn"
         >
           Kabul Ediyorum
         </b-link>

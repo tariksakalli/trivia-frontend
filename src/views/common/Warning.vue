@@ -7,6 +7,9 @@
         İlk bölümdeki soruları cevaplayabilmek için mikrofon erişimine izin verilmesi gerekmektedir.
       </li>
     </ul>
+    <b-row align-h="center">
+      <b-link to='/test-info' class="mt-3 p-2 link-btn">Devam</b-link>
+    </b-row>
   </div>
 </template>
 

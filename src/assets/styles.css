@@ -5,13 +5,13 @@ body {
 
 .login {
   margin: 10% auto;
-  max-width: 70%;
+  max-width: 50%;
   border: 1px solid #bfbfbf;
   border-radius: 5px;
 }
 
 .message-area {
-  margin: 10% auto;
+  margin: 5% auto;
   max-width: 70%;
   text-align: left;
   border: 1px solid #bfbfbf;
@@ -21,7 +21,6 @@ body {
 
 .link-btn {
   display: block;
-  padding: 5px 7px;
   border: 1px solid #ffffff;
   border-radius: 3px;
   color: #ffffff;
@@ -31,4 +30,37 @@ body {
   text-decoration: none;
   background-color: #bfbfbf;
   color: #000000;
+}
+
+.survey-question {
+  border-bottom: 1px dashed #ffffff;
+}
+
+.icon {
+  width: 36px;
+  color: #ffffff;
+}
+
+.icon-bg {
+  width: 96px;
+}
+
+.info-icon {
+  border: 1px solid #ffffff;
+  border-radius: 4px;
+  padding: 3px;
+  margin-right: 5px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.recording {
+  color: #ff0000;
+}
+
+.info-text {
+  color: #bfbfbf;
+  font-size: 0.75em;
 }

@@ -1,13 +1,13 @@
 <template>
   <div class="message-area">
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="age" class="ml-3">Yaş</label>
       <div class="col-sm-3">
         <input type="number" class="form-control" id="age" v-model="user.age">
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="gender" class="ml-3">Cinsiyet</label>
       <div class="col-sm-6">
         <b-form-radio-group id="gender" v-model="user.gender" name="radio-gender">
@@ -17,14 +17,14 @@
       </div>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="department" class="ml-3">Devam etmekte olduğunuz bölüm</label>
       <div class="col-sm-6">
         <input type="text" class="form-control" id="department" v-model="user.department">
       </div>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="drugs" class="ml-3">
         Şu anda herhangi bir nörolojik / psikiyatrik ilaç kullanıyor musunuz?
       </label>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="attentionLevel" class="ml-3">Genel olarak dikkatiniz nasıldır?</label>
       <b-container>
         <b-row>
@@ -58,7 +58,7 @@
       </b-container>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="memoryLevel" class="ml-3">Genel olarak belleğiniz nasıldır?</label>
       <b-container>
         <b-row>
@@ -80,7 +80,7 @@
       </b-container>
     </div>
 
-    <div class="form-group mt-3">
+    <div class="form-group mt-3 pb-3 survey-question">
       <label for="rememberLevel" class="ml-3">
         Birazdan size verilecek kısa cümleleri tahmini ne kadar iyi hatırlayacaksınız?
       </label>
@@ -102,8 +102,9 @@
       </b-row>
       </b-container>
     </div>
-
-    <b-button @click="submitSurvey">Devam</b-button>
+    <b-row align-h="center">
+      <b-button class="mt-3" @click="submitSurvey">Devam</b-button>
+    </b-row>
   </div>
 </template>
 
