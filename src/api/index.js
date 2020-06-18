@@ -5,7 +5,7 @@ const token = {
   ...mapGetters(['getToken']),
 };
 
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'https://192.168.1.53:3000'; // Update api address
 axios.create({
   headers: {
     Authorization: `Bearer ${token}`,

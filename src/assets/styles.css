@@ -64,3 +64,24 @@ body {
   color: #bfbfbf;
   font-size: 0.75em;
 }
+
+.save-message {
+  font-size: 1.5em;
+  text-align: center;
+  height: 325px;
+}
+
+.blank-box {
+  display: block;
+  height: 40%;
+}
+
+.questions {
+  width: 70%;
+  margin: 10% auto;
+}
+
+.btn-control {
+  height: 150px;
+  width: 150px;
+}

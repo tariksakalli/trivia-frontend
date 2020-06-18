@@ -10,6 +10,9 @@ const getters = {
   getToken(state) {
     return state.user.token;
   },
+  getUsername(state) {
+    return state.user.userInfo.name;
+  },
 };
 
 const actions = {

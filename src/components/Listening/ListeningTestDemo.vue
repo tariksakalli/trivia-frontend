@@ -1,0 +1,104 @@
+<template>
+  <div>
+    <div class="question-area" v-show="isVisible">
+      <b-container fluid>
+        <h1 class="warning-message">DİKKAT: Aşağıdaki cümle örnektir.</h1>
+        <b-row>
+          <audio id="player" src="audioFiles/ornek.mp3"></audio>
+        </b-row>
+        <b-row align-h="center" class="my-3">
+          <b-button id="play-button" class="mx-auto btn-control" @click="playQuestion">
+            <v-icon name="play" class="icon-bg"></v-icon>
+          </b-button>
+          <b-button id="mic-button" class="mx-auto btn-control" @click="convertToText">
+            <v-icon name="mic" class="icon-bg" :class="{recording:isRecording}"></v-icon>
+          </b-button>
+        </b-row>
+        <p
+          class="info-text mb-0"
+        >
+        *Lütfen yukarıdaki Dinle butonuna tıklayarak cümleyi dinleyin.
+        Ses kaydını birden fazla kere dinleyebilirsin.
+        Dinlediğin cümleleri ses kayıt ikonuna tıklayıp sesli olarak tekrar etmelisin,
+        istersen ikona basıp tekrar deneyebilirsin.</p>
+        <b-button class="float-right mt-3" @click="toggleVisible">İleri</b-button>
+      </b-container>
+    </div>
+
+    <div v-show="!isVisible">
+      <ul class="info-message">
+        <li>
+          Birazdan girişini yapacağınız cümleler 3'üncü aşama olan Test aşamasında size sorulacak.
+        </li>
+        <li class="underline">Eğer isterseniz testi cevaplarken bu cümlelere bakabileceksiniz.</li>
+      </ul>
+      <b-row align-h="center">
+        <b-link to="/recall-listening-test" class="mt-3 p-2 link-btn">Devam</b-link>
+      </b-row>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'ListeningTestDemo',
+  data() {
+    return {
+      isVisible: true,
+      isRecording: false,
+    };
+  },
+  methods: {
+    toggleVisible() {
+      this.isVisible = !this.isVisible;
+    },
+    convertToText() {
+      this.isRecording = !this.isRecording;
+
+      let SpeechRecognition = SpeechRecognition || webkitSpeechRecognition; // eslint-disable-line
+      let SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList; // eslint-disable-line
+
+      const game = this;
+
+      const recognition = new SpeechRecognition();
+      const speechRecognitionList = new SpeechGrammarList();
+
+      recognition.grammars = speechRecognitionList;
+      recognition.lang = 'tr-TR';
+      recognition.interimResults = false;
+      recognition.maxAlternatives = 1;
+
+      recognition.start();
+
+      recognition.onresult = function (event) {
+        const speechResult = event.results[0][0].transcript.toLowerCase();
+        game.userInput = speechResult;
+      };
+
+      recognition.onspeechend = function () {
+        recognition.stop();
+        game.isRecording = !game.isRecording;
+        game.isDisabled = !game.isDisabled;
+      };
+      recognition.onerror = function () {
+        recognition.stop();
+        game.isRecording = !game.isRecording;
+      };
+    },
+    playQuestion() {
+      const player = document.getElementById('player');
+      const button = document.getElementById('play-button');
+      player.play();
+      player.addEventListener('play', () => {
+        button.disabled = true;
+      });
+      player.addEventListener('ended', () => {
+        button.disabled = false;
+      });
+    },
+  },
+};
+</script>
+
+<style scoped>
+</style>
