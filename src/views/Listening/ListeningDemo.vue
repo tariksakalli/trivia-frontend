@@ -14,18 +14,17 @@
             <v-icon name="mic" class="icon-bg" :class="{recording:isRecording}"></v-icon>
           </b-button>
         </b-row>
-        <p
-          class="info-text mb-0"
-        >
-        *Lütfen yukarıdaki Dinle butonuna tıklayarak cümleyi dinleyin.
-        Ses kaydını birden fazla kere dinleyebilirsin.
-        Dinlediğin cümleleri ses kayıt ikonuna tıklayıp sesli olarak tekrar etmelisin,
-        istersen ikona basıp tekrar deneyebilirsin.</p>
+        <p class="info-text mb-0">
+          *Lütfen yukarıdaki Dinle butonuna tıklayarak cümleyi dinleyin.
+          Ses kaydını birden fazla kere dinleyebilirsin.
+          Dinlediğin cümleleri ses kayıt ikonuna tıklayıp sesli olarak tekrar etmelisin,
+          istersen ikona basıp tekrar deneyebilirsin.
+        </p>
         <b-button class="float-right mt-3" @click="toggleVisible">İleri</b-button>
       </b-container>
     </div>
 
-    <div v-show="!isVisible">
+    <div class="message-area" v-show="!isVisible">
       <ul class="info-message">
         <li>
           Birazdan girişini yapacağınız cümleler 3'üncü aşama olan Test aşamasında size sorulacak.
@@ -33,15 +32,19 @@
         <li class="underline">Eğer isterseniz testi cevaplarken bu cümlelere bakabileceksiniz.</li>
       </ul>
       <b-row align-h="center">
-        <b-link to="/recall-listening-test" class="mt-3 p-2 link-btn">Devam</b-link>
+        <b-button @click="nextSection" class="mt-3 p-2 link-btn">Devam</b-button>
       </b-row>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import recallListening from '@/questions/recallListening';
+import recognitionListening from '@/questions/recognitionListening';
+
 export default {
-  name: 'ListeningTestDemo',
+  name: 'ListeningDemo',
   data() {
     return {
       isVisible: true,
@@ -96,9 +99,25 @@ export default {
         button.disabled = false;
       });
     },
+    nextSection() {
+      const section = this.testName.split('-')[0];
+      if (section === 'recall') {
+        const questions = recallListening;
+        this.$router.push({ name: 'ListeningTest', params: { questions } });
+      } else if (section === 'recognition') {
+        const questions = recognitionListening;
+        this.$router.push({ name: 'ListeningTest', params: { questions } });
+      }
+    },
+  },
+  computed: {
+    ...mapGetters({
+      testName: 'user/getTestName',
+    }),
   },
 };
 </script>
 
 <style scoped>
+
 </style>

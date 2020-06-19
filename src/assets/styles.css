@@ -81,6 +81,12 @@ body {
   margin: 10% auto;
 }
 
+.question-area {
+  width: 70%;
+  margin: 10% auto;
+}
+
+
 .btn-control {
   height: 150px;
   width: 150px;

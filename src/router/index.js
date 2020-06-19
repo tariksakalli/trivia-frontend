@@ -34,21 +34,28 @@ const routes = [
     name: 'TestInfo',
     component: TestInfo,
   },
+  {
+    path: '/dummy',
+    name: 'Dummy',
+    component: () => import('../views/common/Dummy.vue'),
+  },
+
   // Recall Listening
   {
-    path: '/recall-listening-info',
-    name: 'RecallListeningInfo',
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/RecallListening/Listening/ListeningInfo.vue'),
+    path: '/listening-info',
+    name: 'ListeningInfo',
+    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningInfo.vue'),
   },
   {
-    path: '/recall-listening-demo',
-    name: 'RecallListeningDemo',
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/RecallListening/Listening/ListeningDemo.vue'),
+    path: '/listening-demo',
+    name: 'ListeningDemo',
+    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningDemo.vue'),
   },
   {
-    path: '/recall-listening-test',
-    name: 'RecallListeningTest',
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/RecallListening/Listening/ListeningTest.vue'),
+    path: '/listening-test',
+    name: 'ListeningTest',
+    props: true,
+    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningTest.vue'),
   },
 ];
 

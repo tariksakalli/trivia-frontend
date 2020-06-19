@@ -1,7 +1,6 @@
-/* eslint-disable func-names */
 <template>
   <div>
-    <b-modal
+<b-modal
       id="modal-saveMessage"
       centered
       hide-footer
@@ -67,14 +66,10 @@ import { mapGetters } from 'vuex';
 import api from '@/api';
 
 export default {
-  name: 'RecallListeningGame',
+  name: 'ListeningTest',
   props: {
     questions: {
       type: Array,
-      required: true,
-    },
-    section: {
-      type: String,
       required: true,
     },
   },
@@ -220,4 +215,5 @@ export default {
 </script>
 
 <style scoped>
+
 </style>
