@@ -143,9 +143,6 @@ export default {
         this.error = err.message;
       });
     },
-    log() {
-      console.log(this.user);
-    },
   },
   computed: {
     ...mapGetters({
