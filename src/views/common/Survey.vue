@@ -3,7 +3,7 @@
     <div class="form-group mt-3 pb-3 survey-question">
       <label for="age" class="ml-3">Yaş</label>
       <div class="col-sm-3">
-        <input type="number" class="form-control" id="age" v-model="user.age">
+        <input type="number" class="form-control" id="age" v-model="user.age" required>
       </div>
     </div>
 
@@ -105,11 +105,17 @@
     <b-row align-h="center">
       <b-button class="mt-3" @click="submitSurvey">Devam</b-button>
     </b-row>
+    <div class="mt-3" v-if="error">
+      <b-row align-h="center">
+        <p>Lütfen tüm soruları cevaplayın.</p>
+      </b-row>
+    </div>
   </div>
 </template>
 
 <script>
 import api from '@/api';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'Survey',
@@ -123,18 +129,31 @@ export default {
         attentionLevel: 0,
         memoryLevel: 0,
         rememberLevel: 0,
-        username: 'user100',
+        username: '',
       },
+      error: null,
     };
   },
   methods: {
     submitSurvey() {
-      api.submitSurvey(this.user).then((result) => {
-        if (result.data.affectedRows === 1) {
-          this.$router.push({ name: 'Warning' });
-        }
+      this.user.username = this.userid;
+      api.submitSurvey(this.user).then(() => {
+        this.$router.push({ name: 'Warning' });
+      }).catch((err) => {
+        this.error = err.message;
       });
     },
+    log() {
+      console.log(this.user);
+    },
+  },
+  computed: {
+    ...mapGetters({
+      userid: 'user/getUsername',
+    }),
+  },
+  mounted() {
+    this.user.username = this.userid;
   },
 };
 </script>

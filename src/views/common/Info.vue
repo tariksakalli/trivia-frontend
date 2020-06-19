@@ -34,10 +34,7 @@
           Katkılarınız için şimdiden çok teşekkür ederim.
         </p>
       <b-row align-h="center">
-        <b-link
-          to="/survey"
-          class="mt-3 p-3 link-btn"
-        >
+        <b-link to="/survey" class="mt-3 p-3 link-btn">
           Kabul Ediyorum
         </b-link>
       </b-row>

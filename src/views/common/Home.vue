@@ -34,11 +34,15 @@
         <b-button @click="login" size="lg">Giriş</b-button>
       </b-row>
     </b-container>
+    <div class="mt-3" v-if="error">
+      <b-row align-h="center">
+        <p>Hatalı kullanıcı adı / şifre.</p>
+      </b-row>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
 
 export default {
   name: 'Home',
