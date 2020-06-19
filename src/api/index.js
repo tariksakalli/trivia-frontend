@@ -24,4 +24,8 @@ export default {
   getStudents() {
     return axios.get('/admin/students');
   },
+
+  postTestResult(data) {
+    return axios.post('/user/test-result', data);
+  },
 };

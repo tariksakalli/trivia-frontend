@@ -55,13 +55,16 @@
         <span class="underline">örnek</span> gelecek ve hemen ardından
         <span class="underline">gerçek</span> test başlayacak.
       </p>
+      <b-row align-h="center">
+        <b-link to='/nback-demo' class="mt-3 p-2 link-btn">Devam</b-link>
+      </b-row>
     </div>
   </div>
 </template>
 
 <script>
-// import moment from 'moment';
 import { mapGetters } from 'vuex';
+import api from '@/api';
 
 export default {
   name: 'RecallListeningGame',
@@ -147,7 +150,7 @@ export default {
       this.userInput = '';
       button.disabled = false;
       this.addInputToAnswers(player.duration);
-      if (this.counter < this.questions.length) {
+      if (this.counter < this.questions.length - 1) {
         this.counter += 1;
         this.file = this.questions[this.counter];
       } else {
@@ -174,15 +177,26 @@ export default {
       document.getElementById('textarea').value = '';
     },
     addTestTimetToAnswers() {
-      const answer = 'Test Time (ms)';
       const answerTime = this.answers
         .map((item) => item.answerTime)
         .reduce((acc, val) => acc + val);
-      this.answers.push({
-        answer,
-        answerTime,
+
+      this.postTestResult(answerTime);
+    },
+    postTestResult(answerTime) {
+      const testResult = {
+        username: this.username,
+        testName: this.testName,
+        date: new Date().toISOString().split('T')[0],
+        totalTime: answerTime,
+        answers: this.answers,
+      };
+
+      api.postTestResult(testResult).then((result) => {
+        console.log(result);
+      }).catch((err) => {
+        console.log(err);
       });
-      console.log(this.answers);
     },
     showSaveMessage() {
       this.$bvModal.show('modal-saveMessage');
@@ -196,7 +210,11 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(['getUsername']),
+    // ...mapGetters(['getUsername']),
+    ...mapGetters({
+      username: 'user/getUsername',
+      testName: 'user/getTestName',
+    }),
   },
 };
 </script>

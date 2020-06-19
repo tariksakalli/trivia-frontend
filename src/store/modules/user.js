@@ -13,6 +13,9 @@ const getters = {
   getUsername(state) {
     return state.user.userInfo.name;
   },
+  getTestName(state) {
+    return state.user.userInfo.test;
+  },
 };
 
 const actions = {
