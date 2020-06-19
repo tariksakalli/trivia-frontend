@@ -24,7 +24,7 @@ export default {
       if (section === 'listening') {
         this.$router.push({ name: 'ListeningInfo' });
       } else if (section === 'speaking') {
-        this.$router.push({ name: 'Dummy' });
+        this.$router.push({ name: 'SpeakingInfo' });
       }
     },
   },

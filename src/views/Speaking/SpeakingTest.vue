@@ -1,6 +1,6 @@
 <template>
   <div>
-<b-modal
+    <b-modal
       id="modal-saveMessage"
       centered
       hide-footer
@@ -11,38 +11,34 @@
       title="Trivia"
       size="lg"
     >
-      <div class="message-box">
-        <p class="my-4 mx-auto save-message">
-          <span class="blank-box"></span>
-          Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.
-        </p>
-      </div>
+      <p class="my-4 mx-auto save-message">
+        <span class="blank-box"></span>
+        Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.
+      </p>
     </b-modal>
     <div class="questions" v-show="isVisible">
-      <b-container class="w-75">
-        <b-row align-h="center" class="mb-3">
-          <audio id="player" :src="file"></audio>
-          <b-button id="play-button" class="mx-auto btn-control" @click="playQuestion">
-            <v-icon name="play" class="icon-bg"></v-icon>
-          </b-button>
-          <b-button id="mic-button" class="mx-auto btn-control" @click="convertToText">
+      <b-container fluid class="w-75">
+        <h3 class="question-text">{{ questions[counter] }}</h3>
+        <b-row>
+          <b-button id="mic-button" class="mx-auto my-3" @click="convertToText">
             <v-icon name="mic" class="icon-bg" :class="{ recording:isRecording }"></v-icon>
           </b-button>
         </b-row>
-        <b-form-input
-          id="textarea"
-          v-model="userInput"
-          autocomplete="off"
-          onpaste="return false;">
-        </b-form-input>
+        <b-row>
+          <b-form-textarea
+            id="textarea"
+            v-model="userInput"
+            rows="3"
+            no-resize
+            plaintext>
+          </b-form-textarea>
+        </b-row>
         <b-button
           id="save-button"
-          class="float-right mt-5"
+          class="float-right mt-3"
           @click="saveAnswer"
           :disabled="isDisabled"
-        >
-          İleri
-        </b-button>
+        >İleri</b-button>
       </b-container>
     </div>
 
@@ -54,9 +50,6 @@
         <span class="underline">örnek</span> gelecek ve hemen ardından
         <span class="underline">gerçek</span> test başlayacak.
       </p>
-      <b-row align-h="center">
-        <b-link to='/nback-demo' class="mt-3 p-2 link-btn">Devam</b-link>
-      </b-row>
     </div>
   </div>
 </template>
@@ -66,7 +59,7 @@ import { mapGetters } from 'vuex';
 import api from '@/api';
 
 export default {
-  name: 'ListeningTest',
+  name: 'SpeakingTest',
   props: {
     questions: {
       type: Array,
@@ -77,30 +70,15 @@ export default {
     return {
       isVisible: true,
       counter: 0,
-      file: this.questions[0],
-      startTime: new Date().getTime(),
       answers: [],
-      playCount: 0,
-      isRecording: false,
-      userInput: '',
+      startTime: new Date().getTime(),
       saveMessageDuration: 3000,
+      isRecording: false,
       isDisabled: true,
+      userInput: '',
     };
   },
   methods: {
-    playQuestion() {
-      const player = document.getElementById('player');
-      const button = document.getElementById('play-button');
-      this.startTime = (this.playCount === 0) ? new Date().getTime() : this.startTime;
-      player.play();
-      this.playCount += 1;
-      player.addEventListener('play', () => {
-        button.disabled = true;
-      });
-      player.addEventListener('ended', () => {
-        button.disabled = false;
-      });
-    },
     convertToText() {
       this.isRecording = !this.isRecording;
 
@@ -127,67 +105,63 @@ export default {
       recognition.onspeechend = function () {
         recognition.stop();
         game.isRecording = !game.isRecording;
-        game.isDisabled = false;
+        game.isDisabled = !game.isDisabled;
       };
       recognition.onerror = function () {
         recognition.stop();
         game.isRecording = !game.isRecording;
-        game.isDisabled = true;
       };
+
+      const button = document.getElementById('save-button');
+      button.disabled = !button.disabled;
+    },
+    toggleVisible() {
+      this.isVisible = !this.isVisible;
     },
     saveAnswer() {
       this.isDisabled = true;
-      this.isRecording = false;
-
-      const player = document.getElementById('player');
-      player.pause();
-      const button = document.getElementById('play-button');
       this.userInput = '';
-      button.disabled = false;
-      this.addInputToAnswers(player.duration);
       if (this.counter < this.questions.length - 1) {
-        this.counter += 1;
-        this.file = this.questions[this.counter];
+        this.addInputToAnswers();
       } else {
-        button.disabled = true;
+        this.addInputToAnswers();
         this.addTestTimetToAnswers();
-        this.isVisible = !this.isVisible;
+        setTimeout(() => {
+          this.isVisible = !this.isVisible;
+        }, this.saveMessageDuration + 500);
       }
     },
-    addInputToAnswers(playDuration) {
+    addInputToAnswers() {
       this.showSaveMessage();
-      const questionNo = this.counter;
+      const text = this.questions[this.counter];
       const answer = document.getElementById('textarea').value;
-      const audioDuration = playDuration * 1000;
-      const { playCount } = this;
-      const answerTime = new Date().getTime() - this.startTime;
+      const duration = new Date().getTime() - this.startTime - this.saveMessageDuration;
       this.answers.push({
-        questionNo,
+        text,
         answer,
-        audioDuration,
-        playCount,
-        answerTime,
+        duration,
       });
-      this.playCount = 0;
+      this.startTime = new Date().getTime();
       document.getElementById('textarea').value = '';
+      this.counter += 1;
     },
     addTestTimetToAnswers() {
       const answerTime = this.answers
-        .map((item) => item.answerTime)
+        .map((item) => item.duration)
         .reduce((acc, val) => acc + val);
 
-      this.postTestResult(answerTime);
+      this.postTestResults(answerTime);
     },
-    postTestResult(answerTime) {
+    postTestResults(answerTime) {
       const testResult = {
         username: this.username,
         testName: this.testName,
-        date: new Date().toISOString().split('T')[0],
+        date: Date().toISOString().split('T')[0],
         totalTime: answerTime,
         answers: this.answers,
       };
 
-      api.postTestResult(testResult).then((result) => {
+      api.postTestResults(testResult).then((result) => {
         console.log(result);
       }).catch((err) => {
         console.log(err);
@@ -205,7 +179,6 @@ export default {
     },
   },
   computed: {
-    // ...mapGetters(['getUsername']),
     ...mapGetters({
       username: 'user/getUsername',
       testName: 'user/getTestName',
@@ -214,6 +187,6 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 
 </style>

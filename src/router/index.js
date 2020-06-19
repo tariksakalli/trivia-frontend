@@ -40,22 +40,40 @@ const routes = [
     component: () => import('../views/common/Dummy.vue'),
   },
 
-  // Recall Listening
+  // Listening
   {
     path: '/listening-info',
     name: 'ListeningInfo',
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningInfo.vue'),
+    component: () => import(/* webpackChunkName: "listening" */ '../views/Listening/ListeningInfo.vue'),
   },
   {
     path: '/listening-demo',
     name: 'ListeningDemo',
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningDemo.vue'),
+    component: () => import(/* webpackChunkName: "listening" */ '../views/Listening/ListeningDemo.vue'),
   },
   {
     path: '/listening-test',
     name: 'ListeningTest',
     props: true,
-    component: () => import(/* webpackChunkName: "recallListening" */ '../views/Listening/ListeningTest.vue'),
+    component: () => import(/* webpackChunkName: "listening" */ '../views/Listening/ListeningTest.vue'),
+  },
+
+  // Speaking
+  {
+    path: '/speaking-info',
+    name: 'SpeakingInfo',
+    component: () => import(/* webpackChunkName: "speaking" */ '../views/Speaking/SpeakingInfo.vue'),
+  },
+  {
+    path: '/speaking-demo',
+    name: 'SpeakingDemo',
+    component: () => import(/* webpackChunkName: "speaking" */ '../views/Speaking/SpeakingDemo.vue'),
+  },
+  {
+    path: '/speaking-test',
+    name: 'SpeakingTest',
+    props: true,
+    component: () => import(/* webpackChunkName: "speaking" */ '../views/Speaking/SpeakingTest.vue'),
   },
 ];
 
