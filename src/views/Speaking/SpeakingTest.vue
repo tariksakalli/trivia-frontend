@@ -50,6 +50,9 @@
         <span class="underline">örnek</span> gelecek ve hemen ardından
         <span class="underline">gerçek</span> test başlayacak.
       </p>
+      <b-row align-h="center">
+        <b-link to='/nback-info' class="mt-3 p-2 link-btn">Devam</b-link>
+      </b-row>
     </div>
   </div>
 </template>
@@ -150,9 +153,9 @@ export default {
         .map((item) => item.duration)
         .reduce((acc, val) => acc + val);
 
-      this.postTestResults(answerTime);
+      this.postTestResult(answerTime);
     },
-    postTestResults(answerTime) {
+    postTestResult(answerTime) {
       const testResult = {
         username: this.username,
         testName: this.testName,
@@ -161,7 +164,7 @@ export default {
         answers: this.answers,
       };
 
-      api.postTestResults(testResult).then((result) => {
+      api.postTestResult(testResult).then((result) => {
         console.log(result);
       }).catch((err) => {
         console.log(err);

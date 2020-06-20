@@ -75,6 +75,24 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "speaking" */ '../views/Speaking/SpeakingTest.vue'),
   },
+
+  // NBack
+  {
+    path: '/nback-info',
+    name: 'NBackInfo',
+    component: () => import(/* webpackChunkName: "nback" */ '../views/NBack/NBackInfo.vue'),
+  },
+  {
+    path: '/nback-demo',
+    name: 'NBackDemo',
+    component: () => import(/* webpackChunkName: "nback" */ '../views/NBack/NBackDemo.vue'),
+  },
+  {
+    path: '/nback-test',
+    name: 'NBackTest',
+    props: true,
+    component: () => import(/* webpackChunkName: "nback" */ '../views/NBack/NBackTest.vue'),
+  },
 ];
 
 const router = new VueRouter({

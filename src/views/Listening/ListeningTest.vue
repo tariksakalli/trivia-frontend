@@ -55,7 +55,7 @@
         <span class="underline">gerçek</span> test başlayacak.
       </p>
       <b-row align-h="center">
-        <b-link to='/nback-demo' class="mt-3 p-2 link-btn">Devam</b-link>
+        <b-link to='/nback-info' class="mt-3 p-2 link-btn">Devam</b-link>
       </b-row>
     </div>
   </div>
