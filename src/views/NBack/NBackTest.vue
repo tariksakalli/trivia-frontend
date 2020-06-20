@@ -17,8 +17,8 @@
       <p>Dikkat testi sonra erdi.</p>
       <p>Şimdi rahatlayın ve son aşamaya geçmek için ileri butonuna tıklayın.</p>
       <b-row align-h="center">
-      <b-button @click="nextSection" class="mt-3 p-2 link-btn">Devam</b-button>
-    </b-row>
+        <b-button @click="nextSection" class="mt-3 p-2 link-btn">Devam</b-button>
+      </b-row>
     </div>
   </div>
 </template>
@@ -155,7 +155,12 @@ export default {
       });
     },
     nextSection() {
-      this.$router.push({ name: 'Dummy' });
+      const section = this.testName.split('-')[0];
+      if (section === 'recall') {
+        this.$router.push({ name: 'FillInTheBlanksInfo' });
+      } else if (section === 'recognition') {
+        this.$router.push({ name: 'Dummy' });
+      }
     },
   },
   beforeUpdate() {

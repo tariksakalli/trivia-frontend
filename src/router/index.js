@@ -93,6 +93,24 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "nback" */ '../views/NBack/NBackTest.vue'),
   },
+
+  // FillInTheBlanks
+  {
+    path: '/fillintheblanks-info',
+    name: 'FillInTheBlanksInfo',
+    component: () => import(/* webpackChunkName: "fillintheblanks" */ '../views/FillInTheBlanks/FillInTheBlanksInfo.vue'),
+  },
+  {
+    path: '/fillintheblanks-demo',
+    name: 'FillInTheBlanksDemo',
+    component: () => import(/* webpackChunkName: "fillintheblanks" */ '../views/FillInTheBlanks/FillInTheBlanksDemo.vue'),
+  },
+  {
+    path: '/fillintheblanks-test',
+    name: 'FillInTheBlanksTest',
+    props: true,
+    component: () => import(/* webpackChunkName: "fillintheblanks" */ '../views/FillInTheBlanks/FillInTheBlanksTest.vue'),
+  },
 ];
 
 const router = new VueRouter({
