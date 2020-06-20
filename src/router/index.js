@@ -34,11 +34,6 @@ const routes = [
     name: 'TestInfo',
     component: TestInfo,
   },
-  {
-    path: '/dummy',
-    name: 'Dummy',
-    component: () => import('../views/common/Dummy.vue'),
-  },
 
   // Listening
   {
@@ -110,6 +105,19 @@ const routes = [
     name: 'FillInTheBlanksTest',
     props: true,
     component: () => import(/* webpackChunkName: "fillintheblanks" */ '../views/FillInTheBlanks/FillInTheBlanksTest.vue'),
+  },
+
+  // MultipleChoice
+  {
+    path: '/multiplechoice-info',
+    name: 'MultipleChoiceInfo',
+    component: () => import(/* webpackChunkName: "multiplechoice" */ '../views/MultipleChoice/MultipleChoiceInfo.vue'),
+  },
+  {
+    path: '/multiplechoice-test',
+    name: 'MultipleChoiceTest',
+    props: true,
+    component: () => import(/* webpackChunkName: "multiplechoice" */ '../views/MultipleChoice/MultipleChoiceTest.vue'),
   },
 ];
 

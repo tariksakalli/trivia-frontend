@@ -159,7 +159,7 @@ export default {
       if (section === 'recall') {
         this.$router.push({ name: 'FillInTheBlanksInfo' });
       } else if (section === 'recognition') {
-        this.$router.push({ name: 'Dummy' });
+        this.$router.push({ name: 'MultipleChoiceInfo' });
       }
     },
   },
