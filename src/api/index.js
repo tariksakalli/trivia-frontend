@@ -28,4 +28,8 @@ export default {
   postTestResult(data) {
     return axios.post('/user/test-result', data);
   },
+
+  getTestResults() {
+    return axios.get('/admin/test-results');
+  },
 };

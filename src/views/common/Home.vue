@@ -61,7 +61,11 @@ export default {
       evt.preventDefault();
       this.$store.dispatch('user/login', this.formLogin)
         .then(() => {
-          this.$router.push({ name: 'Info' });
+          if (this.formLogin.username === 'user999') {
+            this.$router.push({ name: 'AdminMenu' });
+          } else {
+            this.$router.push({ name: 'Info' });
+          }
         }).catch((err) => {
           this.error = err.message;
         });

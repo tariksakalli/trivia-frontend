@@ -119,6 +119,25 @@ const routes = [
     props: true,
     component: () => import(/* webpackChunkName: "multiplechoice" */ '../views/MultipleChoice/MultipleChoiceTest.vue'),
   },
+
+  // Admin
+  {
+    path: '/admin-menu',
+    name: 'AdminMenu',
+    component: () => import(/* webpackChunkName: "admin" */ '../views/Admin/AdminMenu.vue'),
+    children: [
+      {
+        path: '/studentslist',
+        name: 'StudentsList',
+        component: () => import(/* webpackChunkName: "admin" */ '../views/Admin/StudentsList.vue'),
+      },
+      {
+        path: '/studentresults/:id',
+        name: 'StudentResults',
+        component: () => import(/* webpackChunkName: "admin" */ '../views/Admin/StudentResults.vue'),
+      },
+    ],
+  },
 ];
 
 const router = new VueRouter({
