@@ -35,12 +35,7 @@
     </div>
 
     <div class="message-area" v-show="!isVisible">
-      <ul class="info-message">
-        <li>
-          Birazdan girişini yapacağınız cümleler 3'üncü aşama olan Test aşamasında size sorulacak.
-        </li>
-        <li class="underline">Eğer isterseniz testi cevaplarken bu cümlelere bakabileceksiniz.</li>
-      </ul>
+      <MessageType :messageType="messageType"></MessageType>
       <b-row align-h="center">
         <b-button @click="nextSection" class="mt-3 p-2 link-btn">Devam</b-button>
       </b-row>
@@ -52,9 +47,13 @@
 import { mapGetters } from 'vuex';
 import recallSpeaking from '@/questions/recallSpeaking';
 import recognitionSpeaking from '@/questions/recognitionSpeaking';
+import MessageType from '@/components/Common/MessageType.vue';
 
 export default {
   name: 'SpeakingDemo',
+  components: {
+    MessageType,
+  },
   data() {
     return {
       isVisible: true,
@@ -113,6 +112,7 @@ export default {
   computed: {
     ...mapGetters({
       testName: 'user/getTestName',
+      messageType: 'user/getMessageType',
     }),
   },
 };

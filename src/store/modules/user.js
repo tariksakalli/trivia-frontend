@@ -16,6 +16,9 @@ const getters = {
   getTestName(state) {
     return state.user.userInfo.test;
   },
+  getMessageType(state) {
+    return state.user.userInfo.message_type;
+  },
 };
 
 const actions = {

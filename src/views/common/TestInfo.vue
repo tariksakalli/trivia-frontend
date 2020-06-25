@@ -31,6 +31,7 @@ export default {
   computed: {
     ...mapGetters({
       testName: 'user/getTestName',
+      messageType: 'user/getMessageType',
     }),
   },
 };
