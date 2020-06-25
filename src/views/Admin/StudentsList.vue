@@ -24,6 +24,7 @@ export default {
         { key: 'idstudents', label: 'ID' },
         { key: 'name', label: 'İsim' },
         { key: 'test', label: 'Test' },
+        { key: 'message_type', label: 'K/S' },
         { key: 'age', label: 'Yaş' },
         { key: 'gender', label: 'Cinsiyet' },
         { key: 'department', label: 'Bölüm' },
