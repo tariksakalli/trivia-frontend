@@ -13,7 +13,7 @@
     >
       <p class="my-4 mx-auto save-message">
         <span class="blank-box"></span>
-        Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.
+        {{messageText}}
       </p>
     </b-modal>
     <div class="questions" v-show="isVisible">
@@ -79,6 +79,10 @@ export default {
       isRecording: false,
       isDisabled: true,
       userInput: '',
+      modalMessage: [
+        'Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.',
+        'Girmiş olduğun cümle bilgisayardan SİLİNMİŞTİR.',
+      ],
     };
   },
   methods: {
@@ -185,7 +189,17 @@ export default {
     ...mapGetters({
       username: 'user/getUsername',
       testName: 'user/getTestName',
+      messageType: 'user/getMessageType',
     }),
+    messageText() {
+      if (this.messageType === 'save') {
+        return this.modalMessage[0];
+      }
+      if (this.messageType === 'delete') {
+        return this.modalMessage[1];
+      }
+      return '';
+    },
   },
 };
 </script>
