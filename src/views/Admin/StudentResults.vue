@@ -21,7 +21,8 @@ export default {
       fields: [
         { key: 'idtests', label: 'ID' },
         { key: 'studentname', label: 'İsim' },
-        { key: 'testname', label: 'Test' },
+        { key: 'testname', label: 'Test Group' },
+        { key: 'testtype', label: 'Test' },
         { key: 'date', label: 'Tarih' },
         { key: 'totaltime', label: 'Süre' },
         { key: 'answers', label: 'Cevaplar' },
@@ -42,6 +43,7 @@ export default {
       return this.testResults.map((item) => ({
         ...item,
       })).filter((item) => item.studentname === this.studentId);
+      // .filter((item) => item.testtype === 'Listening');
     },
   },
 };

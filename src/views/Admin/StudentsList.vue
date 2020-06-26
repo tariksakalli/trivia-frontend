@@ -6,8 +6,11 @@
           {{data.value}}
         </router-link>
       </template>
+      <template v-slot:cell(tests_completed)="data">
+        {{booleanToText(data.value)}}
+      </template>
       <template v-slot:cell(drugs)="data">
-        {{drugsValue(data.value)}}
+        {{booleanToText(data.value)}}
       </template>
     </b-table>
   </div>
@@ -25,6 +28,7 @@ export default {
         { key: 'name', label: 'İsim' },
         { key: 'test', label: 'Test' },
         { key: 'message_type', label: 'K/S' },
+        { key: 'tests_completed', label: 'Bitti' },
         { key: 'age', label: 'Yaş' },
         { key: 'gender', label: 'Cinsiyet' },
         { key: 'department', label: 'Bölüm' },
@@ -41,7 +45,7 @@ export default {
     }),
   },
   methods: {
-    drugsValue(value) {
+    booleanToText(value) {
       if (value === 0) {
         return 'Hayır';
       }
