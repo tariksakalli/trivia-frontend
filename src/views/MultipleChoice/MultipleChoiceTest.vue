@@ -55,6 +55,7 @@ export default {
   name: 'MultipleChoiceTest',
   data() {
     return {
+      testType: 'MultipleChoice',
       questions,
       isVisible: true,
       counter: 0,
@@ -100,6 +101,7 @@ export default {
       const testResult = {
         username: this.username,
         testName: this.testName,
+        testType: this.testType,
         date: new Date().toISOString().split('T')[0],
         totalTime: answerTime,
         answers: this.answers,
@@ -107,6 +109,11 @@ export default {
 
       api.postTestResult(testResult).then((result) => {
         console.log(result);
+        api.postTestComplete({ testStatus: true, username: this.username }).then((statusResult) => {
+          console.log(statusResult);
+        }).catch((err) => {
+          console.log(err);
+        });
       }).catch((err) => {
         console.log(err);
       });

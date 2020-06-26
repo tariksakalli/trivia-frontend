@@ -32,6 +32,7 @@ export default {
   name: 'NBackTest',
   data() {
     return {
+      testType: 'NBack',
       questions,
       isStartVisible: true,
       isGameVisible: false,
@@ -143,6 +144,7 @@ export default {
       const testResult = {
         username: this.username,
         testName: this.testName,
+        testType: this.testType,
         date: new Date().toISOString().split('T')[0],
         totalTime: answerTime,
         answers: this.answers,

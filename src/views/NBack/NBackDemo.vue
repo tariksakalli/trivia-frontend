@@ -9,13 +9,15 @@
         <span class="num">{{ question }}</span>
       </div>
       <div class="repeat-area">
-        <button class="big-btn" @click="logAnswer">TEKRAR</button>
+        <button id="repeat-button"></button>
       </div>
     </div>
 
     <div class="message-area" v-show="isFinishedVisible">
       <p>Örnek test sona erdi, gerçek testi başlatmak için Devam'a tıklayın.</p>
-      <b-link to="/nback-test" class="float-right mt-3 link-btn">Devam</b-link>
+      <b-row align-h="center">
+        <b-link to="/nback-test" class="float-right mt-3 link-btn">Devam</b-link>
+      </b-row>
     </div>
   </div>
 </template>

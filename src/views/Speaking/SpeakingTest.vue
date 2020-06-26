@@ -71,6 +71,7 @@ export default {
   },
   data() {
     return {
+      testType: 'Speaking',
       isVisible: true,
       counter: 0,
       answers: [],
@@ -104,17 +105,17 @@ export default {
 
       recognition.start();
 
-      recognition.onresult = function (event) {
+      recognition.onresult = function recognitionOnResult(event) {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         game.userInput = speechResult;
       };
 
-      recognition.onspeechend = function () {
+      recognition.onspeechend = function recognitionOnSpeechEnd() {
         recognition.stop();
         game.isRecording = !game.isRecording;
         game.isDisabled = !game.isDisabled;
       };
-      recognition.onerror = function () {
+      recognition.onerror = function recognitionOnError() {
         recognition.stop();
         game.isRecording = !game.isRecording;
       };
@@ -163,7 +164,8 @@ export default {
       const testResult = {
         username: this.username,
         testName: this.testName,
-        date: Date().toISOString().split('T')[0],
+        testType: this.testType,
+        date: new Date().toISOString().split('T')[0],
         totalTime: answerTime,
         answers: this.answers,
       };

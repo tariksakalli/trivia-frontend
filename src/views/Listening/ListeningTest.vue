@@ -75,6 +75,7 @@ export default {
   },
   data() {
     return {
+      testType: 'Listening',
       isVisible: true,
       counter: 0,
       file: this.questions[0],
@@ -123,17 +124,17 @@ export default {
 
       recognition.start();
 
-      recognition.onresult = function (event) {
+      recognition.onresult = function recognitionOnResult(event) {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         game.userInput = speechResult;
       };
 
-      recognition.onspeechend = function () {
+      recognition.onspeechend = function recognitionOnSpeechEnd() {
         recognition.stop();
         game.isRecording = !game.isRecording;
         game.isDisabled = false;
       };
-      recognition.onerror = function () {
+      recognition.onerror = function recognitionOnError() {
         recognition.stop();
         game.isRecording = !game.isRecording;
         game.isDisabled = true;
@@ -186,6 +187,7 @@ export default {
       const testResult = {
         username: this.username,
         testName: this.testName,
+        testType: this.testType,
         date: new Date().toISOString().split('T')[0],
         totalTime: answerTime,
         answers: this.answers,
