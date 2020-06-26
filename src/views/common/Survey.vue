@@ -1,5 +1,6 @@
 <template>
   <div class="message-area">
+    <p class="pl-3">Ankette yer alan tüm sorulara cevap verilmesi gerekmektedir.</p>
     <div class="form-group mt-3 pb-3 survey-question">
       <label for="age" class="ml-3">Yaş</label>
       <div class="col-sm-3">
@@ -126,9 +127,9 @@ export default {
         gender: '',
         department: '',
         drugs: '',
-        attentionLevel: 0,
-        memoryLevel: 0,
-        rememberLevel: 0,
+        attentionLevel: '',
+        memoryLevel: '',
+        rememberLevel: '',
         username: '',
       },
       error: null,
