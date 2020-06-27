@@ -1,49 +1,82 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="filterResults" dark>
-      <template v-slot:cell(answers)="data">
-        <b-table :fields="answerFields" :items="JSON.parse(data.item.answers)" dark>
-        </b-table>
-      </template>
-    </b-table>
+    <ListeningReport
+      :testResult="listeningResults"
+      v-if="listeningResults">
+    </ListeningReport>
+
+    <SpeakingReport
+      :testResult="speakingResults"
+      v-if="speakingResults">
+    </SpeakingReport>
+
+    <NBackReport
+      :testResult="nBackResults"
+      v-if="nBackResults">
+    </NBackReport>
+
+    <FillInTheBlanksReport
+      :testResult="fillInTheBlanksResults"
+      v-if="fillInTheBlanksResults">
+    </FillInTheBlanksReport>
+
+    <MultipleChoiceReport
+      :testResult="multipleChoiceResults"
+      v-if="multipleChoiceResults">
+    </MultipleChoiceReport>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex';
+import FillInTheBlanksReport from '@/components/AdminReports/FillInTheBlanksReport.vue';
+import ListeningReport from '@/components/AdminReports/ListeningReport.vue';
+import MultipleChoiceReport from '@/components/AdminReports/MultipleChoiceReport.vue';
+import NBackReport from '@/components/AdminReports/NBackReport.vue';
+import SpeakingReport from '@/components/AdminReports/SpeakingReport.vue';
 
 export default {
   name: 'StudentResults',
+  components: {
+    FillInTheBlanksReport,
+    ListeningReport,
+    MultipleChoiceReport,
+    NBackReport,
+    SpeakingReport,
+  },
   data() {
     return {
       studentId: this.$route.params.id,
-      testAnswers: [],
-      fields: [
-        { key: 'idtests', label: 'ID' },
-        { key: 'studentname', label: 'İsim' },
-        { key: 'testname', label: 'Test Group' },
-        { key: 'testtype', label: 'Test' },
-        { key: 'date', label: 'Tarih' },
-        { key: 'totaltime', label: 'Süre' },
-        { key: 'answers', label: 'Cevaplar' },
-      ],
-      answerFields: [
-        { key: 'level', label: 'Seviye' },
-        { key: 'answer', label: 'Cevap' },
-        { key: 'duration', label: 'Süre' },
-        { key: 'correctAnswer', label: 'Doğru Cevap' },
-      ],
     };
   },
   computed: {
     ...mapGetters({
       testResults: 'admin/getTestResults',
     }),
-    filterResults() {
+    fillInTheBlanksResults() {
       return this.testResults.map((item) => ({
         ...item,
-      })).filter((item) => item.studentname === this.studentId);
-      // .filter((item) => item.testtype === 'Listening');
+      })).filter((item) => item.studentname === this.studentId && item.testtype === 'FillInTheBlanks');
+    },
+    listeningResults() {
+      return this.testResults.map((item) => ({
+        ...item,
+      })).filter((item) => item.studentname === this.studentId && item.testtype === 'Listening');
+    },
+    multipleChoiceResults() {
+      return this.testResults.map((item) => ({
+        ...item,
+      })).filter((item) => item.studentname === this.studentId && item.testtype === 'MultipleChoice');
+    },
+    nBackResults() {
+      return this.testResults.map((item) => ({
+        ...item,
+      })).filter((item) => item.studentname === this.studentId && item.testtype === 'NBack');
+    },
+    speakingResults() {
+      return this.testResults.map((item) => ({
+        ...item,
+      })).filter((item) => item.studentname === this.studentId && item.testtype === 'Speaking');
     },
   },
 };
