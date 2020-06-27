@@ -183,9 +183,6 @@ export default {
         this.$bvModal.hide('modal-saveMessage');
       }, this.saveMessageDuration);
     },
-    nextSection() {
-      this.$router.push({ name: 'Dummy' });
-    },
   },
   computed: {
     ...mapGetters({

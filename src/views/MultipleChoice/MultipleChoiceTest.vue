@@ -118,9 +118,6 @@ export default {
         console.log(err);
       });
     },
-    nextSection() {
-      this.$router.push('/section-end');
-    },
   },
   beforeUpdate() {
     this.startTime = new Date().getTime();

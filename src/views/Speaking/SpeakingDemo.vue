@@ -80,17 +80,17 @@ export default {
 
       recognition.start();
 
-      recognition.onresult = function (event) {
+      recognition.onresult = function recognitionOnResult(event) {
         const speechResult = event.results[0][0].transcript.toLowerCase();
         game.userInput = speechResult;
       };
 
-      recognition.onspeechend = function () {
+      recognition.onspeechend = function recognitionOnSpeechEnd() {
         recognition.stop();
         game.isRecording = !game.isRecording;
         game.isDisabled = !game.isDisabled;
       };
-      recognition.onerror = function () {
+      recognition.onerror = function recognitionOnError() {
         recognition.stop();
         game.isRecording = !game.isRecording;
       };
