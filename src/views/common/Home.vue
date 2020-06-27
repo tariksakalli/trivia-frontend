@@ -36,7 +36,7 @@
     </b-container>
     <div class="mt-3" v-if="error">
       <b-row align-h="center">
-        <p>Hatalı kullanıcı adı / şifre.</p>
+        <p>{{error}}</p>
       </b-row>
     </div>
   </div>
@@ -67,7 +67,7 @@ export default {
             this.$router.push({ name: 'Info' });
           }
         }).catch((err) => {
-          this.error = err.message;
+          this.error = err.response.data.message;
         });
     },
   },
