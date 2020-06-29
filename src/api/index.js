@@ -5,7 +5,7 @@ const token = {
   ...mapGetters(['getToken']),
 };
 
-axios.defaults.baseURL = 'https://192.168.1.53:3000'; // Update api address
+axios.defaults.baseURL = process.env.VUE_APP_API_ADDR;
 axios.create({
   headers: {
     Authorization: `Bearer ${token}`,
