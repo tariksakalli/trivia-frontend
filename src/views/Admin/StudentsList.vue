@@ -1,6 +1,18 @@
 <template>
   <div>
-    <b-table :fields="fields" :items="students" dark>
+    <b-form-group label="Test Durumu">
+      <b-form-radio-group
+        id="radio-group-test-status"
+        v-model="testStatus"
+        name="radio-test-status"
+      >
+        <b-form-radio value="all">Tümü</b-form-radio>
+        <b-form-radio value="done">Tamalandı</b-form-radio>
+        <b-form-radio value="notDone">Yapılmadı</b-form-radio>
+      </b-form-radio-group>
+    </b-form-group>
+
+    <b-table :fields="fields" :items="filteredStudents" dark>
       <template v-slot:cell(name)="data">
         <router-link :to="{name: 'StudentResults', params: {id: data.value} }">
           {{data.value}}
@@ -23,6 +35,7 @@ export default {
   name: 'StudentsList',
   data() {
     return {
+      testStatus: 'all',
       fields: [
         { key: 'idstudents', label: 'ID' },
         { key: 'name', label: 'İsim' },
@@ -43,6 +56,20 @@ export default {
     ...mapGetters({
       students: 'admin/getStudentsList',
     }),
+    filteredStudents() {
+      if (this.testStatus === 'done') {
+        return this.students.map((item) => ({
+          ...item,
+        })).filter((item) => item.tests_completed === 1);
+      }
+      if (this.testStatus === 'notDone') {
+        return this.students.map((item) => ({
+          ...item,
+        })).filter((item) => item.tests_completed === null);
+      }
+
+      return this.students;
+    },
   },
   methods: {
     booleanToText(value) {
