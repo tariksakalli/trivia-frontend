@@ -4,13 +4,21 @@
       <b-form-radio-group
         id="radio-group-test-status"
         v-model="testStatus"
+        :options="testStatusOptions"
         name="radio-test-status"
       >
-        <b-form-radio value="all">Tümü</b-form-radio>
-        <b-form-radio value="done">Tamalandı</b-form-radio>
-        <b-form-radio value="notDone">Yapılmadı</b-form-radio>
       </b-form-radio-group>
     </b-form-group>
+
+    <vue-excel-xlsx
+      class="float-left btn link-btn "
+      :data="filteredStudents"
+      :columns="fields"
+      :filename="excelFileName"
+      :sheetname="excelFileName"
+    >
+      Excel'e Aktar
+    </vue-excel-xlsx>
 
     <b-table :fields="fields" :items="filteredStudents" dark>
       <template v-slot:cell(name)="data">
@@ -36,19 +44,29 @@ export default {
   data() {
     return {
       testStatus: 'all',
+      testStatusOptions: [
+        { text: 'Tümü', value: 'all' },
+        { text: 'Tamamlandı', value: 'done' },
+        { text: 'Yapılmadı', value: 'notDone' },
+      ],
+      // b-table uses label, excel-xlsx uses field & dataFormat
       fields: [
-        { key: 'idstudents', label: 'ID' },
-        { key: 'name', label: 'İsim' },
-        { key: 'test', label: 'Test' },
-        { key: 'message_type', label: 'K/S' },
-        { key: 'tests_completed', label: 'Bitti' },
-        { key: 'age', label: 'Yaş' },
-        { key: 'gender', label: 'Cinsiyet' },
-        { key: 'department', label: 'Bölüm' },
-        { key: 'drugs', label: 'İlaç' },
-        { key: 'attention_level', label: 'Dikkat' },
-        { key: 'memory_level', label: 'Hafıza' },
-        { key: 'remember_level', label: 'Hatırlama' },
+        { key: 'idstudents', label: 'ID', field: 'idstudents' },
+        { key: 'name', label: 'İsim', field: 'name' },
+        { key: 'test', label: 'Test', field: 'test' },
+        { key: 'message_type', label: 'K/S', field: 'message_type' },
+        {
+          key: 'tests_completed', label: 'Bitti', field: 'tests_completed', dataFormat: this.booleanToText,
+        },
+        { key: 'age', label: 'Yaş', field: 'age' },
+        { key: 'gender', label: 'Cinsiyet', field: 'gender' },
+        { key: 'department', label: 'Bölüm', field: 'department' },
+        {
+          key: 'drugs', label: 'İlaç', field: 'drugs', dataFormat: this.booleanToText,
+        },
+        { key: 'attention_level', label: 'Dikkat', field: 'attention_level' },
+        { key: 'memory_level', label: 'Hafıza', field: 'memory_level' },
+        { key: 'remember_level', label: 'Hatırlama', field: 'remember_level' },
       ],
     };
   },
@@ -62,6 +80,7 @@ export default {
           ...item,
         })).filter((item) => item.tests_completed === 1);
       }
+
       if (this.testStatus === 'notDone') {
         return this.students.map((item) => ({
           ...item,
@@ -69,6 +88,9 @@ export default {
       }
 
       return this.students;
+    },
+    excelFileName() {
+      return `Öğrenci Listesi ${this.testStatus}`;
     },
   },
   methods: {
