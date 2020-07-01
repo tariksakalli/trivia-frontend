@@ -123,7 +123,7 @@ export default {
   data() {
     return {
       user: {
-        age: 0,
+        age: '',
         gender: '',
         department: '',
         drugs: '',

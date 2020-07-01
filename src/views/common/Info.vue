@@ -37,9 +37,6 @@
         <b-link to="/survey" class="mt-3 p-3 link-btn">
           Kabul Ediyorum
         </b-link>
-        <b-link to="/warning" class="mt-3 p-3 link-btn">
-          AnketiAtla
-        </b-link>
       </b-row>
     </b-container>
   </div>
