@@ -1,28 +1,28 @@
 <template>
   <div>
     <ListeningReport
-      :testResult="listeningResults"
-      v-if="listeningResults">
+      :testResult="testResult('Listening')"
+    >
     </ListeningReport>
 
     <SpeakingReport
-      :testResult="speakingResults"
-      v-if="speakingResults">
+      :testResult="testResult('Speaking')"
+    >
     </SpeakingReport>
 
     <NBackReport
-      :testResult="nBackResults"
-      v-if="nBackResults">
+      :testResult="testResult('NBack')"
+    >
     </NBackReport>
 
     <FillInTheBlanksReport
-      :testResult="fillInTheBlanksResults"
-      v-if="fillInTheBlanksResults">
+      :testResult="testResult('FillInTheBlanks')"
+    >
     </FillInTheBlanksReport>
 
     <MultipleChoiceReport
-      :testResult="multipleChoiceResults"
-      v-if="multipleChoiceResults">
+      :testResult="testResult('MultipleChoice')"
+    >
     </MultipleChoiceReport>
   </div>
 </template>
@@ -49,36 +49,19 @@ export default {
       studentId: this.$route.params.id,
     };
   },
+  methods: {
+    testResult(testName) {
+      return this.testResults.map((item) => ({
+        ...item,
+      })).filter((item) => item.studentname === this.studentId && item.testtype === testName);
+    },
+  },
   computed: {
     ...mapGetters({
       testResults: 'admin/getTestResults',
     }),
-    fillInTheBlanksResults() {
-      return this.testResults.map((item) => ({
-        ...item,
-      })).filter((item) => item.studentname === this.studentId && item.testtype === 'FillInTheBlanks');
-    },
-    listeningResults() {
-      return this.testResults.map((item) => ({
-        ...item,
-      })).filter((item) => item.studentname === this.studentId && item.testtype === 'Listening');
-    },
-    multipleChoiceResults() {
-      return this.testResults.map((item) => ({
-        ...item,
-      })).filter((item) => item.studentname === this.studentId && item.testtype === 'MultipleChoice');
-    },
-    nBackResults() {
-      return this.testResults.map((item) => ({
-        ...item,
-      })).filter((item) => item.studentname === this.studentId && item.testtype === 'NBack');
-    },
-    speakingResults() {
-      return this.testResults.map((item) => ({
-        ...item,
-      })).filter((item) => item.studentname === this.studentId && item.testtype === 'Speaking');
-    },
   },
+
 };
 </script>
 
