@@ -37,6 +37,10 @@
         v-bind:disabled="selected === ''"
         @click="showQuestion"
       >İleri</b-button>
+
+      <div v-show="error">
+        <p class="red">{{error}}</p>
+      </div>
     </div>
 
     <div v-show="!isVisible" class="message-area">
@@ -62,6 +66,7 @@ export default {
       selected: '',
       answers: [],
       startTime: new Date().getTime(),
+      error: '',
     };
   },
   methods: {
@@ -72,7 +77,6 @@ export default {
       } else {
         this.addInputToAnswers();
         this.addTestTimeToAnswers();
-        this.isVisible = !this.isVisible;
       }
     },
     addInputToAnswers() {
@@ -107,15 +111,17 @@ export default {
         answers: this.answers,
       };
 
-      api.postTestResult(testResult).then((result) => {
-        console.log(result);
-        api.postTestComplete({ testStatus: true, username: this.username }).then((statusResult) => {
-          console.log(statusResult);
-        }).catch((err) => {
-          console.log(err);
+      api.postTestResult(testResult).then(() => {
+        this.isVisible = false;
+        api.postTestComplete({ testStatus: true, username: this.username }).then(() => {
+          this.isVisible = false;
+        }).catch(() => {
+          this.error = 'Bir hata oluştu. Lütfen tekrar deneyin';
+          this.isDisabled = false;
         });
-      }).catch((err) => {
-        console.log(err);
+      }).catch(() => {
+        this.error = 'Bir hata oluştu. Lütfen tekrar deneyin';
+        this.isDisabled = false;
       });
     },
   },

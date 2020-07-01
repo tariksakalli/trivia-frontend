@@ -40,6 +40,9 @@
           :disabled="isDisabled"
         >İleri</b-button>
       </b-container>
+      <div v-show="error">
+        <p class="red">{{error}}</p>
+      </div>
     </div>
 
     <div v-show="!isVisible" class="message-area">
@@ -84,6 +87,7 @@ export default {
         'Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.',
         'Girmiş olduğun cümle bilgisayardan SİLİNMİŞTİR.',
       ],
+      error: '',
     };
   },
   methods: {
@@ -123,9 +127,6 @@ export default {
       const button = document.getElementById('save-button');
       button.disabled = !button.disabled;
     },
-    toggleVisible() {
-      this.isVisible = !this.isVisible;
-    },
     saveAnswer() {
       this.isDisabled = true;
       this.userInput = '';
@@ -135,7 +136,6 @@ export default {
         this.addInputToAnswers();
         this.addTestTimetToAnswers();
         setTimeout(() => {
-          this.isVisible = !this.isVisible;
         }, this.saveMessageDuration + 500);
       }
     },
@@ -170,10 +170,11 @@ export default {
         answers: this.answers,
       };
 
-      api.postTestResult(testResult).then((result) => {
-        console.log(result);
-      }).catch((err) => {
-        console.log(err);
+      api.postTestResult(testResult).then(() => {
+        this.isVisible = false;
+      }).catch(() => {
+        this.error = 'Bir hata oluştu. Lütfen tekrar deneyin';
+        this.isDisabled = false;
       });
     },
     showSaveMessage() {

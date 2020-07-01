@@ -13,6 +13,11 @@
       </div>
     </div>
 
+    <div class="message-area" v-show="error">
+      <p class="red">{{error}}</p>
+      <b-button @click="addGameTimeToAnswers">İleri</b-button>
+    </div>
+
     <div class="message-area" v-show="isFinishedVisible">
       <p>Dikkat testi sonra erdi.</p>
       <p>Şimdi rahatlayın ve son aşamaya geçmek için ileri butonuna tıklayın.</p>
@@ -46,6 +51,7 @@ export default {
       startTime: new Date().getTime(),
       isResponse: false,
       answerDuration: 2000,
+      error: '',
     };
   },
   methods: {
@@ -108,7 +114,6 @@ export default {
             this.addGameTimeToAnswers();
             this.isStartVisible = false;
             this.isGameVisible = false;
-            this.isFinishedVisible = true;
           }
         }
       }, 2000); // if interval value changed update answerDuration in data() and logAnswer
@@ -150,10 +155,11 @@ export default {
         answers: this.answers,
       };
 
-      api.postTestResult(testResult).then((result) => {
-        console.log(result);
-      }).catch((err) => {
-        console.log(err);
+      api.postTestResult(testResult).then(() => {
+        this.isFinishedVisible = true;
+        this.error = '';
+      }).catch(() => {
+        this.error = 'Bir hata oluştu. Lütfen tekrar deneyin';
       });
     },
     nextSection() {

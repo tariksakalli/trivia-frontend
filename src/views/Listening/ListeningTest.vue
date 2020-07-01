@@ -44,6 +44,9 @@
           İleri
         </b-button>
       </b-container>
+      <div v-show="error">
+        <p class="red">{{error}}</p>
+      </div>
     </div>
 
     <div v-show="!isVisible" class="message-area">
@@ -90,6 +93,7 @@ export default {
         'Girmiş olduğunuz cümle TRIVIA BİLGİLER klasörüne KAYIT edilmiştir.',
         'Girmiş olduğun cümle bilgisayardan SİLİNMİŞTİR.',
       ],
+      error: '',
     };
   },
   methods: {
@@ -156,7 +160,6 @@ export default {
       } else {
         button.disabled = true;
         this.addTestTimetToAnswers();
-        this.isVisible = !this.isVisible;
       }
     },
     addInputToAnswers(playDuration) {
@@ -193,10 +196,11 @@ export default {
         answers: this.answers,
       };
 
-      api.postTestResult(testResult).then((result) => {
-        console.log(result);
-      }).catch((err) => {
-        console.log(err);
+      api.postTestResult(testResult).then(() => {
+        this.isVisible = !this.isVisible;
+      }).catch(() => {
+        this.error = 'Bir hata oluştu. Lütfen tekrar deneyin';
+        this.isDisabled = false;
       });
     },
     showSaveMessage() {
