@@ -29,11 +29,11 @@ export default {
     return {
       questions: [
         {
-          questionSet: ['B', 'F', 'T', 'F'],
+          questionSet: ['A', 'B', 'A', 'R', 'G', 'C', 'M', 'C', 'L', 'A'],
           type: '2 Geri',
         },
         {
-          questionSet: ['R', 'C', 'G', 'R'],
+          questionSet: ['D', 'F', 'H', 'H', 'F', 'C', 'H', 'G', 'K', 'B'],
           type: '3 Geri',
         },
       ],
