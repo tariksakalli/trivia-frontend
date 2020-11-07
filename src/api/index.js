@@ -5,7 +5,7 @@ const token = {
   ...mapGetters(['getToken']),
 };
 
-axios.defaults.baseURL = process.env.VUE_APP_API_ADDR;
+axios.defaults.baseURL = 'api/';
 axios.create({
   headers: {
     Authorization: `Bearer ${token}`,
