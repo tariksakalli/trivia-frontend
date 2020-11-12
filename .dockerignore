@@ -1,5 +1,3 @@
 node_modules
-certs
-nginx_config
 .git
 .gitignore
