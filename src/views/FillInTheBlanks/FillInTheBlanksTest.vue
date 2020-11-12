@@ -79,6 +79,7 @@ export default {
         duration,
       });
       this.answer = '';
+      this.startTime = new Date().getTime();
     },
     addTestTimeToAnswers() {
       const answerTime = this.answers
@@ -110,9 +111,6 @@ export default {
         this.isDisabled = false;
       });
     },
-  },
-  beforeUpdate() {
-    this.startTime = new Date().getTime();
   },
   computed: {
     ...mapGetters({
